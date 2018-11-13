@@ -1,0 +1,27 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: apple-app
+  namespace: ingress-nginx
+  labels:
+    app: apple
+spec:
+  containers:
+    - name: apple-app
+      image: hashicorp/http-echo
+      args:
+        - "-text=apple"
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  namespace: ingress-nginx
+  name: apple-service
+spec:
+  selector:
+    app: apple
+  #type: NodePort
+  ports:
+    - port: 5678 # Default port for image

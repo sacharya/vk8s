@@ -1,0 +1,37 @@
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: loginapp
+  namespace: auth
+data:
+  config.yaml: |
+    name: "Kubernetes Auth"
+    listen: "0.0.0.0:5555"
+    oidc:
+      client:
+        id: "loginapp"
+        secret: 4TORGiNV9M54BTk1v7dNuFSaI6hUjfjr
+        redirect_url: "https://login.furiouscat.com:32002/callback"
+      issuer:
+        root_ca: "/etc/ssl/ca.pem"
+        url: "https://dex.furiouscat.com:32000"
+      extra_scopes:
+        - groups
+      offline_as_scope: true
+      #cross_clients:
+      #- web
+    tls:
+      enabled: true
+      cert: "/etc/loginapp/tls/tls.crt"
+      key: "/etc/loginapp/tls/tls.key"
+    log:
+      level: Debug
+      format: json
+    web_output:
+      main_client_id: "loginapp"
+      main_username_claim: "email"
+      assets_dir: "./assets/"
+      skip_main_page: true
+
+

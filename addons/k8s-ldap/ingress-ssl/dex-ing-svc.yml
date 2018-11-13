@@ -1,0 +1,40 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dex
+  namespace: auth
+spec:
+  #type: NodePort
+  ports:
+  - name: dex
+    port: 5556
+    protocol: TCP
+    targetPort: 5556
+    #nodePort: 32000
+  selector:
+    app: dex
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: dex
+  namespace: auth
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    #kubernetes.io/tls-acme: 'true'
+    ingress.kubernetes.io/force-ssl-redirect: 'true'
+spec:
+  rules:
+    - host: dex.furiouscat.com
+      http:
+        paths:
+          - backend:
+              serviceName: dex
+              servicePort: 5556
+            path: /
+  tls:
+    - hosts:
+        - dex.furiouscat.com
+      secretName: dex.furiouscat.com.tls

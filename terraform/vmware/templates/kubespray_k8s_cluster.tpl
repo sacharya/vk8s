@@ -45,13 +45,22 @@ kube_users:
       - system:masters
 
 ## It is possible to activate / deactivate selected authentication methods (basic auth, static token auth)
-kube_oidc_auth: true
+#kube_oidc_auth: true
 #kube_basic_auth: false
 #kube_token_auth: false
 
 
 ## Variables for OpenID Connect Configuration https://kubernetes.io/docs/admin/authentication/
 ## To use OpenID you have to deploy additional an OpenID Provider (e.g Dex, Keycloak, ...)
+
+kube_oidc_auth: true
+#kube_oidc_url: "https://dex.furiouscat.com:32000"
+kube_oidc_url: "https://dex.furiouscat.com"
+kube_oidc_client_id: "loginapp"
+## Optional settings for OIDC
+kube_oidc_ca_file: "/etc/kubernetes/ssl/openid-ca.pem"
+kube_oidc_username_claim: "email"
+kube_oidc_groups_claim: "groups"
 
 #kube_oidc_url: "https://k8s-kubespray-dex.inkubate.io:32000"
 #kube_oidc_client_id: "example-app"
@@ -194,9 +203,9 @@ cephfs_provisioner_enabled: false
 # cephfs_provisioner_storage_class: cephfs
 
 # Nginx ingress controller deployment
-ingress_nginx_enabled: false
+ingress_nginx_enabled: true
 # ingress_nginx_host_network: false
-# ingress_nginx_namespace: "ingress-nginx"
+ingress_nginx_namespace: "ingress-nginx"
 # ingress_nginx_insecure_port: 80
 # ingress_nginx_secure_port: 443
 # ingress_nginx_configmap:
@@ -208,8 +217,8 @@ ingress_nginx_enabled: false
 #   53: "kube-system/kube-dns:53"
 
 # Cert manager deployment
-cert_manager_enabled: false
-# cert_manager_namespace: "cert-manager"
+cert_manager_enabled: true
+cert_manager_namespace: "cert-manager"
 
 # Add Persistent Volumes Storage Class for corresponding cloud provider ( OpenStack is only supported now )
 persistent_volumes_enabled: false

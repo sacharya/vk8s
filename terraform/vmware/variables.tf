@@ -130,6 +130,7 @@ variable "k8s_gateway" {
 }
 
 variable "k8s_dns" {
+  type        = "list"
   description = "DNS for the Kubernetes nodes"
 }
 

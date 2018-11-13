@@ -191,6 +191,10 @@ resource "null_resource" "kubespray_download" {
 # Execute create Kubespray Ansible playbook #
 resource "null_resource" "kubespray_create" {
   count = "${var.action == "create" ? 1 : 0}"
+  
+  triggers {
+    key = "${uuid()}"
+  }
 
   provisioner "local-exec" {
     command = "cd kubespray && ansible-playbook -i ../config/hosts.ini -b -u ${var.vm_user} -v cluster.yml -e kube_version=${var.k8s_version}"
@@ -277,7 +281,7 @@ resource "vsphere_virtual_machine" "master" {
   clone {
     template_uuid = "${data.vsphere_virtual_machine.template.id}"
     linked_clone  = "${var.vm_linked_clone}"
-
+    timeout       = "180"
     customize {
       linux_options {
         host_name = "${var.k8s_node_prefix}-${count.index}"
@@ -290,7 +294,7 @@ resource "vsphere_virtual_machine" "master" {
       }
 
       ipv4_gateway    = "${var.k8s_gateway}"
-      dns_server_list = ["${var.k8s_dns}"]
+      dns_server_list = "${var.k8s_dns}"
     }
   }
 
@@ -346,7 +350,7 @@ resource "vsphere_virtual_machine" "worker" {
   clone {
     template_uuid = "${data.vsphere_virtual_machine.template.id}"
     linked_clone  = "${var.vm_linked_clone}"
-
+    timeout       = "180"
     customize {
       linux_options {
         host_name = "${var.k8s_node_prefix}-worker-${count.index}"
@@ -359,7 +363,7 @@ resource "vsphere_virtual_machine" "worker" {
       }
 
       ipv4_gateway    = "${var.k8s_gateway}"
-      dns_server_list = ["${var.k8s_dns}"]
+      dns_server_list = "${var.k8s_dns}"
     }
   }
 
@@ -420,7 +424,7 @@ resource "vsphere_virtual_machine" "haproxy" {
   clone {
     template_uuid = "${data.vsphere_virtual_machine.template.id}"
     linked_clone  = "${var.vm_linked_clone}"
-
+    timeout       = "180"
     customize {
       linux_options {
         host_name = "${var.k8s_node_prefix}-haproxy"
@@ -433,7 +437,7 @@ resource "vsphere_virtual_machine" "haproxy" {
       }
 
       ipv4_gateway    = "${var.k8s_gateway}"
-      dns_server_list = ["${var.k8s_dns}"]
+      dns_server_list = "${var.k8s_dns}"
     }
   }
 
