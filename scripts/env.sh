@@ -7,7 +7,7 @@ function kuse() {
   echo "KUBE_ENV: $KUBE_ENV"
 
   my_env=$KUBE_ENV
-
+  mkdir ~/.kube
   cp /vagrant/terraform/vmware/config/$my_env.conf  ~/.kube/config
 
   #kubectl config get-contexts
