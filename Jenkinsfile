@@ -11,7 +11,7 @@ pipeline {
             agent {
                 docker {
                     image "$DEPLOYMENT_TOOLS_IMAGE"
-                    registryUrl "https://hub.docker.com"
+                    registryUrl "https://registry.hub.docker.com"
                     
                 }
             }
