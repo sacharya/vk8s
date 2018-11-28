@@ -76,6 +76,9 @@ Vagrant.configure(2) do |config|
      cat /vagrant/.ssh/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys
      #ln -s /vagrant/ansible /etc/ansible
 
+     sudo cp /vagrant/id_rsa* /root/.ssh/
+     cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
+
      virtualenv --python=python3.5 /opt/venvs/vmk8s
      source /opt/venvs/vmk8s/bin/activate
      pip install ansible
