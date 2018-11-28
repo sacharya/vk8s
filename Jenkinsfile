@@ -1,12 +1,7 @@
 // Environment variables don't work within agent docker. So defining a variable outside the pipeline.
 def DEPLOYMENT_TOOLS_IMAGE="dreamoid/deployment-tools:latest"
 pipeline {
-    // https://issues.jenkins-ci.org/browse/JENKINS-51307
-    agent {
-        dockerfile {
-            args '--entrypoint=\'\''
-        }
-    }
+    agent none
 
     stages {
         stage('Checkout') {
