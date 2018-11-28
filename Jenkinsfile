@@ -17,20 +17,36 @@ pipeline {
             }
             steps {
                 echo 'Planning..'
-                sh '''
-                    make -e plan
-                '''
-                
+                sh "make -e plan"
             }
         }
-        stage('Test') {
+        stage('Apply') {
+            environment {
+                VSPHERE_CREDENTIALS_ID=""
+            }
+            agent {
+                docker {
+                    image "$DEPLOYMENT_TOOLS_IMAGE"
+                    registryUrl "https://registry.hub.docker.com"
+                }
+            }
             steps {
-                echo 'Testing..'
+                echo 'Applying..'
+                sh "make -e apply"
             }
         }
-        stage('Deploy') {
+        stage('Validate') {
+            environment {
+                VSPHERE_CREDENTIALS_ID=""
+            }
+            agent {
+                docker {
+                    image "$DEPLOYMENT_TOOLS_IMAGE"
+                    registryUrl "https://registry.hub.docker.com"
+                }
+            }
             steps {
-                echo 'Deploying....'
+                echo 'Validating..'
             }
         }
     }
