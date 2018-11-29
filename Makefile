@@ -9,6 +9,10 @@ all: help
 help: ## Prints help for targets with comments
 	@grep -E '^[a-zA-Z._-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
+init: ## Applies Terraform init for the cluster
+	@echo "Running terraform plan for $(ENV)"
+	@cd terraform/$(PLATFORM); terraform init -lock=true -lock-timeout=$(TIMEOUT)
+
 plan: ## Prints Terraform Plan for the cluster
 	@echo "Running terraform plan for $(ENV)"
 	@cd terraform/$(PLATFORM); terraform plan -lock=true -lock-timeout=$(TIMEOUT)
