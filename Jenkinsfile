@@ -15,12 +15,6 @@ pipeline {
             environment {
                 VSPHERE_CREDENTIALS_ID=""
             }
-            agent {
-                docker {
-                    image "$DEPLOYMENT_TOOLS_IMAGE"
-                    registryUrl "https://registry.hub.docker.com"
-                }
-            }
             steps {
                 echo 'Planning..'
                 sh "make -e plan"
@@ -30,12 +24,6 @@ pipeline {
             environment {
                 VSPHERE_CREDENTIALS_ID=""
             }
-            agent {
-                docker {
-                    image "$DEPLOYMENT_TOOLS_IMAGE"
-                    registryUrl "https://registry.hub.docker.com"
-                }
-            }
             steps {
                 echo 'Applying..'
                 sh "make -e apply"
@@ -44,12 +32,6 @@ pipeline {
         stage('Validate') {
             environment {
                 VSPHERE_CREDENTIALS_ID=""
-            }
-            agent {
-                docker {
-                    image "$DEPLOYMENT_TOOLS_IMAGE"
-                    registryUrl "https://registry.hub.docker.com"
-                }
             }
             steps {
                 echo 'Validating..'
