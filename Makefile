@@ -12,7 +12,7 @@ help: ## Prints help for targets with comments
 plan-init: ## Applies Terraform init and plan for the cluster
 	@echo "Running terraform plan for $(ENV)"
 	@cd terraform/$(PLATFORM); terraform init -lock=true -lock-timeout=$(TIMEOUT)
-  @cd terraform/$(PLATFORM); terraform plan -lock=true -lock-timeout=$(TIMEOUT)
+	@cd terraform/$(PLATFORM); terraform plan -lock=true -lock-timeout=$(TIMEOUT)
 
 plan: ## Prints Terraform Plan for the cluster
 	@echo "Running terraform plan for $(ENV)"
