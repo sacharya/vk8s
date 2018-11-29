@@ -1,7 +1,7 @@
 // Environment variables don't work within agent docker. So defining a variable outside the pipeline.
 def DEPLOYMENT_TOOLS_IMAGE="dreamoid/deployment-tools:latest"
 pipeline {
-    agent none
+    agent any
 
     stages {
         stage('Checkout') {
