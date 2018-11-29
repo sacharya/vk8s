@@ -17,7 +17,7 @@ pipeline {
             }
             steps {
                 echo 'Planning..'
-                sh "make -e plan"
+                sh "make -e plan-init"
             }
         }
         stage('Apply') {
