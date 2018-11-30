@@ -17,7 +17,13 @@ pipeline {
             }
             steps {
                 echo 'Planning..'
-                sh "make -e plan-init"
+                withCredentials([
+                usernamePassword(credentialsId: 'vsphere_user_credentials_id', vsphere_user: 'USERNAME', vsphere_password: 'PASSWORD'),
+                usernamePassword(credentialsId: 'vsphere_vcp_user_credentials_id', vsphere_vcp_user: 'USERNAME', vsphere_vcp_password: 'PASSWORD'),
+                usernamePassword(credentialsId: 'vm_user_credentials_id', vm_user: 'USERNAME', vm_password: 'PASSWORD')
+                ]) {
+                  sh "make -e plan-init"
+                }
             }
         }
         stage('Apply') {
