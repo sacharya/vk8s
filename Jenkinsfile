@@ -22,6 +22,9 @@ pipeline {
                 usernamePassword(credentialsId: 'vsphere_vcp_user_credentials_id', vsphere_vcp_user: 'USERNAME', vsphere_vcp_password: 'PASSWORD'),
                 usernamePassword(credentialsId: 'vm_user_credentials_id', vm_user: 'USERNAME', vm_password: 'PASSWORD')
                 ]) {
+                  echo "username is $USERNAME"
+                  echo "password is $PASSWORD"
+
                   sh "make -e plan-init"
                 }
             }
