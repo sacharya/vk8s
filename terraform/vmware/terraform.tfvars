@@ -1,9 +1,9 @@
 # vCenter connection
 vsphere_vcenter = "10.127.83.176"
 
-vsphere_user = ""
+#vsphere_user = ""
 
-vsphere_password = ""
+#vsphere_password = ""
 
 vsphere_unverified_ssl = "true"
 
@@ -15,16 +15,16 @@ vsphere_resource_pool = "p-mk8s-cluster/Resources/kubernetes-kubespray"
 
 vsphere_enable_anti_affinity = "true"
 
-vsphere_vcp_user = ""
+#vsphere_vcp_user = ""
 
-vsphere_vcp_password = ""
+#vsphere_vcp_password = ""
 
 vsphere_vcp_datastore = "datastore1"
 
 # Kubernetes infrastructure
-vm_user = ""
+#vm_user = ""
 
-vm_password = ""
+#vm_password = ""
 
 vm_folder = "kubernetes-kubespray"
 
